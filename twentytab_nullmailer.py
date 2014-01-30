@@ -42,8 +42,12 @@ class Nullmailer(SMTPServer):
         filename = "%f_%s_%d_%d" % (time.time(), time.strftime("%Y.%m.%d.%H.%M.%S"), self.__pid__, self.__counter__)
         tmp = "%s/%s" % (self.__tmp__, filename)
         spool = "%s/%s" % (self.__queue__, filename)
+
         with open(tmp, 'w') as f:
-            f.write(data)
+            f.write(mailfrom + '\n')
+            for rcpt in rcpttos:
+                f.write(rcpt + '\n')
+            f.write('\n' + data)
 
         try:
             os.link(tmp, spool)
