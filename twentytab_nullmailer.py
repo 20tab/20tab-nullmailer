@@ -39,7 +39,7 @@ class Nullmailer(SMTPServer):
 
     def process_message(self, peer, mailfrom, rcpttos, data):
         self.__counter__ += 1
-        filename = "%s_%f_%d_%d" % (time.strftime("%Y.%m.%d.%H.%M.%S"), time.time(), self.__pid__, self.__counter__)
+        filename = "%f_%s_%d_%d" % (time.time(), time.strftime("%Y.%m.%d.%H.%M.%S"), self.__pid__, self.__counter__)
         tmp = "%s/%s" % (self.__tmp__, filename)
         spool = "%s/%s" % (self.__queue__, filename)
         with open(tmp, 'w') as f:
